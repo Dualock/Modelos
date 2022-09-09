@@ -100,6 +100,69 @@ def combination_relative_freq(filepath: str) -> list:
     return frequencies
 
 
+def joint_probabilities(filepath: str, purchase_amount: list) -> None:
+    """
+    Asignación 5 y 6:
+    Calcula la probabilidad de P(C U D)
+    Calcula la probabilidad de P(D U A U B)
+    param filepath: direccion del archivo.csv
+    """
+    # P(D u C) = P(C) + P(D) - P(CyD)
+    # P(D U A U B) =
+    # P(D) + P(A) + P(B) + P(AyByD) - P(AyD) - P(AyB) - P(ByD)
+    # Números enteros con la combinación de productos comprados
+    producto_a, producto_b, producto_c, producto_d = 0, 0, 0, 0
+    # probabilidad de las intersecciones
+    prob_ab, prob_cd, prob_ad, prob_bd = 0, 0, 0, 0
+    prob_abd = 0
+    # probabilidades de union
+    prob_CUD = 0
+    prob_DUAUB = 0
+    # total es la cantidad de personas que compraron los productos
+    total = 0
+    with open(filepath, newline='') as csvfile:
+        reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+        # Se lee cada fila en el csv
+        for row in reader:
+            # se separan los elementos por ','
+            elements = row[0].split(',')
+            # ignoramos la primer línea
+            if (elements[0] == "Cliente"):
+                pass
+            else:
+                producto_a, producto_b = int(elements[1]), int(elements[2])
+                producto_c, producto_d = int(elements[3]), int(elements[4])
+                total += 1  # Se aumenta el total de elementos
+                # Se calculan las frecuencias absolutas conjuntas
+                if (producto_a == 1 and producto_b == 1):
+                    prob_ab += 1
+                if (producto_a == 1 and producto_d == 1):
+                    prob_ad += 1
+                if (producto_c == 1 and producto_d == 1):
+                    prob_cd += 1
+                if (producto_b == 1 and producto_d == 1):
+                    prob_bd += 1
+                if (producto_a == 1 and producto_b == 1 and producto_d == 1):
+                    prob_abd += 1
+    # se calculan las frecuencias relativas conjuntas
+    prob_ab /= total
+    prob_ad /= total
+    prob_abd /= total
+    prob_bd /= total
+    prob_cd /= total
+    # Se calculan las frecuencias relativas individuales
+    # los inices contienen
+    # purchase_amount[0] = P(A), purchase_amount[1] = P(B)
+    # purchase_amount[2] = P(C), purchase_amount[3] = P(D)
+    for i in range(len(purchase_amount)):
+        purchase_amount[i] /= total
+    prob_CUD = purchase_amount[2] + purchase_amount[3] - prob_cd
+    prob_DUAUB = purchase_amount[0] + purchase_amount[1] \
+        + purchase_amount[3] + prob_abd - prob_ab - prob_ad - prob_bd
+    print("Probabilidad de C U D: ", prob_CUD)
+    print("Probabilidad de D U A u B: ", prob_DUAUB)
+
+
 def combination_bar_graph(combination_frequencies: list) -> None:
     """
     Asignación: 4
@@ -128,3 +191,4 @@ purchase_amount = relative_freq()
 bar_graph(purchase_amount)
 combination_frequencies = combination_relative_freq('compras.csv')
 combination_bar_graph(combination_frequencies)
+joint_probabilities('compras.csv', purchase_amount)

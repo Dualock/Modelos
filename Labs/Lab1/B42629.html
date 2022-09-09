@@ -13219,7 +13219,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
@@ -13283,7 +13283,7 @@ P1 = B, P2 = A
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Soluciones">Soluciones<a class="anchor-link" href="#Soluciones">&#182;</a></h3><h4 id="Ejercicio-1:">Ejercicio 1:<a class="anchor-link" href="#Ejercicio-1:">&#182;</a></h4><p>Utilizando la biblioteca pandas tanto para leer el archivo.csv como para operar en los datos se crean dataframes de cada columna y se calculan las frecuencias relativas de compra de cada producto. La función <code>relative_freq()</code> retorna una lista con la cantidad de compras por producto para ser utilizada en el punto 2</p>
+<h3 id="Soluciones">Soluciones<a class="anchor-link" href="#Soluciones">&#182;</a></h3><h4 id="Ejercicio-1:">Ejercicio 1:<a class="anchor-link" href="#Ejercicio-1:">&#182;</a></h4><p>Utilizando la biblioteca pandas, tanto para leer el archivo.csv como para operar en los datos, se crean dataframes de cada columna y se calculan las frecuencias relativas de compra de cada producto. La función <code>relative_freq()</code> retorna una lista con la cantidad de compras por producto para ser utilizada en el punto 2.</p>
 <p>En estadistica la frecuencia relativa $f_r$ se obtiene dividiendo la frecuencia absoluta $f_a$ de una muestra entre el total de valores $N$ de la muestra, es decir:</p>
 $$f_r = \frac{f_a}{N}$$
 </div>
@@ -13291,7 +13291,7 @@ $$f_r = \frac{f_a}{N}$$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
@@ -13379,7 +13379,7 @@ $$f_r = \frac{f_a}{N}$$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">bar_graph</span><span class="p">(</span><span class="n">purchase_amount</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -13433,7 +13433,7 @@ $$f_r = \frac{f_a}{N}$$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Ejercicio-3:">Ejercicio 3:<a class="anchor-link" href="#Ejercicio-3:">&#182;</a></h4><p>Para obtener la frecuencia relativa de combinaciones de compra por cliente, se hace uso de la biblioteca <code>csv</code> para leer el <code>compra.csv</code> y se utiliza lógica normal de python para acceder a los datos. La idea detrás de esta solución es obtener la combinación de productos de compra por cada fila(persona) y tratar a cada combinación como un número binario, donde dicho número es el índice de una lista <code>frequencies</code> donde se cuenta la cantidad de aparición por cada combinación. Es decir si un cliente compra los productos A y D (1, 0, 0, 1), entonces esta combinación tiene como indice un 9, como se muestra en la siguiente tabla:</p>
+<h4 id="Ejercicio-3:">Ejercicio 3:<a class="anchor-link" href="#Ejercicio-3:">&#182;</a></h4><p>Para obtener la frecuencia relativa de combinaciones de compra por cliente, se hace uso de la biblioteca <code>csv</code> para leer el <code>compra.csv</code> y se utiliza lógica normal de python para acceder a los datos. La idea detrás de esta solución es obtener la combinación de productos de compra por cada fila(persona) y tratar a cada combinación como un número binario, donde dicho número es el índice de una lista <code>frequencies</code> donde se cuenta la cantidad de aparición por cada combinación. Por ejemplo, si un cliente compra los productos A y D (1, 0, 0, 1), entonces esta combinación tiene como indice un 9, como se muestra en la siguiente tabla:</p>
 <table>
 <thead><tr>
 <th>Índice</th>
@@ -13564,7 +13564,7 @@ $$f_r = \frac{f_a}{N}$$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">combination_relative_freq</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
@@ -13638,6 +13638,155 @@ $$f_r = \frac{f_a}{N}$$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Se obtuvo la siguiente lista de frecuencias</p>
+<table>
+<thead><tr>
+<th style="text-align:center">Índice</th>
+<th style="text-align:center">A</th>
+<th style="text-align:center">B</th>
+<th style="text-align:center">C</th>
+<th style="text-align:center">D</th>
+<th style="text-align:center">Frecuencia relativa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0.07</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0.058</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0.106</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0.038</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0.014</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0.008</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0.022</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0.014</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0.106</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0.092</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0.206</td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0.128</td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0.036</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0.02</td>
+</tr>
+<tr>
+<td style="text-align:center">14</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0.048</td>
+</tr>
+<tr>
+<td style="text-align:center">15</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0.034</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Ejercicio-4:">Ejercicio 4:<a class="anchor-link" href="#Ejercicio-4:">&#182;</a></h4><p>Para este ejercicio, se grafican las frecuencias relativas por combinacion utilizando las bibliotecas <code>pandas</code> y <code>matplotlib</code></p>
 
 </div>
@@ -13645,7 +13794,7 @@ $$f_r = \frac{f_a}{N}$$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">combination_bar_graph</span><span class="p">(</span><span class="n">combination_frequencies</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -13705,7 +13854,126 @@ $$f_r = \frac{f_a}{N}$$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Ejercicio-5:">Ejercicio 5:<a class="anchor-link" href="#Ejercicio-5:">&#182;</a></h4><p>Segun la función de<code>asignacion()</code>. Se calcula: $P(C \cup D)$ y $D \cup A \cup B)$.</p>
+<h4 id="Ejercicio-5:">Ejercicio 5:<a class="anchor-link" href="#Ejercicio-5:">&#182;</a></h4><p>Segun la función de<code>asignacion()</code>. Se calcula: $P(C \cup D)$ y $P(D \cup A \cup B)$.</p>
+<ul>
+<li><p>Para $P(C \cup D)$ al no ser eventos independientes, la probabilidad de la unión se calcula como la suma arítmetica de las probabilidades individuales menos la probabilidad de la intersección de ambos eventos, es decir:</p>
+<p>$$P(C \cup D) = P(D) + P(C) - P(C \cap D)$$</p>
+<p>De los incisos anteriores se obtuvo que $P(D) = 0.392$, $P(C) = 0.596$ y para $P(C \cap D)$, se suman las frecuencias relativas que involucran a C y D, es decir las frecuencias relativas de de índices [3], [7], [11] y [15]. Entonces</p>
+<p>$$P(C \cap D) = 0.038+0.014 + 0.128 + 0.034 = 0.214$$</p>
+<p>Por lo tanto:</p>
+<p>$$P(C \cup D) = 0.596 + 0.392 - 0.214 = 0.774$$</p>
+<p>Como conclusión de esta subsección, las probabilidades de que una persona compre C o D son de $77.4\%$</p>
+</li>
+</ul>
+<ul>
+<li><p>Para $P(D \cup A \cup B)$ nuevamente se observa que no son eventos independientes por lo que la probabilidad de la unión de los 3 eventos se calcula como la suma arítmetica de cada evento por separado menos las intersecciones entre pares de conjuntos más la intersección entre los 3 conjuntos, es decir:</p>
+<p>$$P(D \cup A \cup B) = P(D) + P(A) + P(B) - P(A \cap B) - P(A \cap D) - P(B \cup D) + P(A \cap B \cap D) $$</p>
+<p>Para corroborar el resultado del punto anterior y no hacer tan tedioso este, se realizó otro script de python</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">joint_probabilities</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">purchase_amount</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Asignación 5:</span>
+<span class="sd">    Calcula la probabilidad de P(C U D)</span>
+<span class="sd">    Calcula la probabilidad de P(D U A U B)</span>
+<span class="sd">    param filepath: direccion del archivo.csv</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># P(D u C) = P(C) + P(D) - P(CyD)</span>
+    <span class="c1"># P(D U A U B) =</span>
+    <span class="c1"># P(D) + P(A) + P(B) + P(AyByD) - P(AyD) - P(AyB) - P(ByD)</span>
+    <span class="c1"># Números enteros con la combinación de productos comprados</span>
+    <span class="n">producto_a</span><span class="p">,</span> <span class="n">producto_b</span><span class="p">,</span> <span class="n">producto_c</span><span class="p">,</span> <span class="n">producto_d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="c1"># probabilidad de las intersecciones</span>
+    <span class="n">prob_ab</span><span class="p">,</span> <span class="n">prob_cd</span><span class="p">,</span> <span class="n">prob_ad</span><span class="p">,</span> <span class="n">prob_bd</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="n">prob_abd</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># probabilidades de union</span>
+    <span class="n">prob_CUD</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">prob_DUAUB</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># total es la cantidad de personas que compraron los productos</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">csvfile</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">quotechar</span><span class="o">=</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+        <span class="c1"># Se lee cada fila en el csv</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+            <span class="c1"># se separan los elementos por &#39;,&#39;</span>
+            <span class="n">elements</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+            <span class="c1"># ignoramos la primer línea</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Cliente&quot;</span><span class="p">):</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">producto_a</span><span class="p">,</span> <span class="n">producto_b</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">producto_c</span><span class="p">,</span> <span class="n">producto_d</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+                <span class="n">total</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># Se aumenta el total de elementos</span>
+                <span class="c1"># Se calculan las frecuencias absolutas conjuntas</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">producto_a</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">producto_b</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="n">prob_ab</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">producto_a</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">producto_d</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="n">prob_ad</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">producto_c</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">producto_d</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="n">prob_cd</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">producto_b</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">producto_d</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="n">prob_bd</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">producto_a</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">producto_b</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">producto_d</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="n">prob_abd</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1"># se calculan las frecuencias relativas conjuntas</span>
+    <span class="n">prob_ab</span> <span class="o">/=</span> <span class="n">total</span>
+    <span class="n">prob_ad</span> <span class="o">/=</span> <span class="n">total</span>
+    <span class="n">prob_abd</span> <span class="o">/=</span> <span class="n">total</span>
+    <span class="n">prob_bd</span> <span class="o">/=</span> <span class="n">total</span>
+    <span class="n">prob_cd</span> <span class="o">/=</span> <span class="n">total</span>
+    <span class="c1"># Se calculan las frecuencias relativas individuales</span>
+    <span class="c1"># los inices contienen</span>
+    <span class="c1"># purchase_amount[0] = P(A), purchase_amount[1] = P(B)</span>
+    <span class="c1"># purchase_amount[2] = P(C), purchase_amount[3] = P(D)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">purchase_amount</span><span class="p">)):</span>
+        <span class="n">purchase_amount</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/=</span> <span class="n">total</span>
+    <span class="n">prob_CUD</span> <span class="o">=</span> <span class="n">purchase_amount</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">purchase_amount</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">prob_cd</span>
+    <span class="n">prob_DUAUB</span> <span class="o">=</span> <span class="n">purchase_amount</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">purchase_amount</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> \
+        <span class="o">+</span> <span class="n">purchase_amount</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">prob_abd</span> <span class="o">-</span> <span class="n">prob_ab</span> <span class="o">-</span> <span class="n">prob_ad</span> <span class="o">-</span> <span class="n">prob_bd</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Probabilidad de C U D: &quot;</span><span class="p">,</span> <span class="n">prob_CUD</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Probabilidad de D U A u B: &quot;</span><span class="p">,</span> <span class="n">prob_DUAUB</span><span class="p">)</span>
+    
+<span class="c1"># Se llaman las funciones</span>
+<span class="n">joint_probabilities</span><span class="p">(</span><span class="s1">&#39;compras.csv&#39;</span><span class="p">,</span> <span class="n">purchase_amount</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Probabilidad de C U D:  0.774
+Probabilidad de D U A u B:  0.824
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Por lo tanto, se corrobora que $P( C \cup D) = 77.4\%$ y se obtiene que $P (D \cup A \cup B) = 82.4\%$</p>
 
 </div>
 </div>
@@ -13713,7 +13981,10 @@ $$f_r = \frac{f_a}{N}$$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Ejercicio-6:">Ejercicio 6:<a class="anchor-link" href="#Ejercicio-6:">&#182;</a></h4><p>Según la función <code>asignacion()</code> se tiene que $P1 = B$ y $P2 = A$, entonces la probablilidad de que un cliente compre A dado que ya compró B es $P(A|B)$</p>
+<h4 id="Ejercicio-6:">Ejercicio 6:<a class="anchor-link" href="#Ejercicio-6:">&#182;</a></h4><p>Según la función <code>asignacion()</code> se tiene que $P1 = B$ y $P2 = A$, entonces la probablilidad de que un cliente compre A dado que ya compró B es $P(A|B)$, se calcula utilizando la probabilidad condicional
+$$P(A|B) = \frac{P (B \cap A)}{P(B)}$$</p>
+<p>De los datos obtenidos en los puntos anteriores se tiene que $P(B \cap A) = 0.138$ y $P(B) = 0.196$. Por lo tanto</p>
+$$P(A|B) = \frac{0.138}{0.196} = 0.704 = 70.4\%$$<p>Se concluye, entonces, que la probabilidad de que una persona que haya comprado B, tambien compre A es $70.4\%$</p>
 
 </div>
 </div>

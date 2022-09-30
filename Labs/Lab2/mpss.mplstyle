@@ -1,0 +1,4 @@
+lines.linewidth 	: 4
+axes.prop_cycle		: cycler('color', ['005DA4', '00C0F3', '6DC067', 'FFE06A'])
+axes.spines.right	: False
+axes.spines.top		: False

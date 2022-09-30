@@ -1,6 +1,6 @@
 import numpy as np
-import tikzplotlib
 import scipy
+import tikzplotlib
 from fitter import Fitter
 import pandas as pd
 import random
@@ -11,6 +11,7 @@ from typing import NewType
 # Declaracion de variables globales y tipo de datos
 file = 'arboles.csv'
 global_bins = 30
+# Se define un nuevo tipo de datos
 dataframe = NewType("dataframe type", pd.DataFrame())
 
 
@@ -23,15 +24,15 @@ def cantidad_arboles(df: dataframe) -> None:
     """
     # Ordena los datos segun la columna de nombres en orden alfabetico
     df.sort_values(by=['Nombre común'], inplace=True)
-    # Se muestran los primeros y ultimos nombres para probar que se ordenaron
-    print(df['Nombre común'][0:10])
     # Cuenta la cantidad total de elementos en la columna
     cantidad = df['Nombre común'].count()
+    # Se muestran los primeros y ultimos nombres para probar que se ordenaron
+    print(df['Nombre común'][0:10])
+    print(df['Nombre común'][cantidad-10:cantidad])
     # Cuenta la cantidad de especies distintas de arboles
     especies_distintas = df['Nombre común'].nunique()
     # Guarda una lista con el nombre de cada especie unica
     nombre_especies = df['Nombre común'].unique()
-    print(df['Nombre común'][cantidad-10:cantidad])
     print("cantidad de especies distintas: ", especies_distintas)
     print("Nombre de todas las especes: \n", nombre_especies)
 
@@ -107,6 +108,27 @@ def mejor_ajuste(df: dataframe, mis_arboles: list) -> tuple:
     return parametros
 
 
+def valor_comercial(df: dataframe) -> list:
+    """
+    Asignacion: 4
+    Determina el valor comercial promedio por cada arbol
+    y obtiene el tipo el arbol con mayor valor promedio
+    """
+    media_maxima = 0
+    arbol_mas_valioso = ''
+    especies_distintas = df['Nombre común'].unique()
+    for x in especies_distintas:
+        nuevo_df = df[df['Nombre común'] == x]
+        media_actual = nuevo_df['Valor comercial aproximado (CRC)'].mean()
+        print(x, media_actual)
+        if (media_maxima < media_actual):
+            media_maxima = media_actual
+            arbol_mas_valioso = x
+    print("el arbol {} tiene el mayor valor comercial promedio de {}"
+          .format(arbol_mas_valioso, media_maxima))
+    return [arbol_mas_valioso, media_maxima]
+
+
 def asignaciones(digitos):
     '''Función que asigna un árbol y una
     combinación de dos árboles a cada persona
@@ -136,4 +158,7 @@ Arboles_histo = ['guapinol', 'balsa', 'gallinazo', 'higuerón', 'malacahuite',
 # histograma_Arboles(df, Arboles_histo)
 
 '''Asignacion 3'''
-mejor_ajuste(df, arboles_asign3)
+# mejor_ajuste(df, arboles_asign3)
+
+'''Asignacion 4'''
+valor_comercial(df)

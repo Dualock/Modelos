@@ -12,30 +12,14 @@ B42629
 Análisis de datos de demanda eléctrica del país
 -----------------------------------------------
 
-[Incluir aquí una explicación de lo que hace el script.]
+[Este programa tiene como finalidad introducir al estudiante en temas relacionados a
+variable aleatoria multiple, donde se utilizan datos obtenidos del CENCE por medio del
+API expuesto y mediante librerias de analisis de datos como scipy, numpy, pandas
+Se van a crear dataframes con los datos de consumo de potencia en 2 horas especificas
+en Costa Rica, se van a calcular el modelo y parametros de mejor ajuste, asi como hacer
+histogramas univariables y bivariables, se calculara el coeficiente de correlacion entre
+ambas horas dadas.]
 
-Recomendaciones [¡borrar luego!]:
-
-- La elección de nombres de variables y funciones
-apropiados es, en sí, un esfuerzo de documentación.
-	- Ejemplo de nombres de variables apropiados:
-		No: V = 120
-		Sí: tension_ac = 120
-	- Ejemplo de nombres de funciones apropiados:
-		No: def h(x, y):
-		Sí: def hipotenusa(cat_1, cat_2):
-
-- Es buena práctica habilitar un autocorrector de
-PEP8 en el IDE. Por ejemplo, en Sublime el comando
-CTRL + SHIFT + 8 hace la corrección automática. En
-VS Code es CTRL + SHIFT + F, etc. (es necesario
-instalar los paquetes correspondientes).
-
-- El estricto apego a un estilo de docstrings (Google
-Style, NumPy Style, ReST, etc.) permite generar 
-documentación automáticamente en la forma de páginas web
-o archivos PDF, usando herramientas como Sphinx (no será
-realizado en este proyecto).
 
 '''
 import numpy as np

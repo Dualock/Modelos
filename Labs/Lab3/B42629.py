@@ -120,7 +120,8 @@ def datos_hora(hora: int, df: dataframe) -> dataframe:
 	Esta funcion crea un dataframe con todos los datos de consumo
 	de potencia para una hora especifica a partir del dataframe 
 	completo para todas las horas en un periodo establecido
-		Parameters
+
+	Parameters
     ----------
     hora : int
     df : dataframe
@@ -173,6 +174,7 @@ def modelo_hora(df_hora_asignacion: dataframe) -> list:
 	'''
 
 	modelo_y_parametros = []
+
 	# Se convierte de dataframe a numpy array
 	data = np.array(df_hora_asignacion['MW_P'])
 
@@ -192,8 +194,6 @@ def modelo_hora(df_hora_asignacion: dataframe) -> list:
 	# Se agrega el nombre del modelo a la lista final
 	modelo_y_parametros.append(mejor_modelo[0])
 
-    # Mostrar principales resultados y gráfica
-	f.summary()
 	parametros = f.fitted_param[mejor_modelo[0]]
 	for i in range(len(parametros)):
 		modelo_y_parametros.append(parametros[i])
@@ -202,20 +202,17 @@ def modelo_hora(df_hora_asignacion: dataframe) -> list:
 def estadisticas_hora(df_hora_asignacion: dataframe):
 	'''
 	Esta funcion determina los momentos de una variable aleatoria
-	media, varianza, desviacion estandar, inclinacion y kurtosis,
+	media, varianza, desviacion estandar, inclinacion y kurtosis
+
+	Parameters
     ----------
     df_hora_asignacion : dataframe
 		Un dataframe con los datos de consumo de potencia de una hora
 		especifica durante todo el año
 
-	Return
-	------
-	modelo_y_parametros: list
-		lista con el nombre del modelo probabilistico 
-		y los parametros de mejor ajuste
 	'''
 
-	# Calculo de media
+	# Calculo de media, desvviacion estandar, varianza, inclinacion, kurtosis
 	media = df_hora_asignacion['MW_P'].mean()
 	desviacion = df_hora_asignacion['MW_P'].std()
 	varianza = df_hora_asignacion['MW_P'].var()
@@ -225,6 +222,37 @@ def estadisticas_hora(df_hora_asignacion: dataframe):
 	print(" - desviación: {} \n - varianza: {}".format(desviacion, varianza))
 	print("- inclinación:{} \n - kurtosis:{}".format(inclinacion, kurtosis))
 
+def visualizacion_hora(df_hora: dataframe, mejor_modelo: str, hora: int) -> None:
+	'''
+	Esta funcion determina visualiza el histograma junto al modelo de
+	mejor ajuste del consumo de potencia en 1 hora especifica durante todo
+	el año
+
+	Parameters
+    ----------
+    df_hora_asignacion : dataframe
+		Un dataframe con los datos de consumo de potencia de una hora
+		especifica durante todo el año
+	mejor_modelo : str
+	hora : int
+	'''
+	# Se convierte de dataframe a numpy array
+	data = np.array(df_hora['MW_P'])
+
+    # Se utiliza fitter para encontrar los parametros de mejor ajuste
+	f = Fitter(data, distributions = ['{}'.format(mejor_modelo)])
+
+    # Realizar el ajuste para las distribuciones seleccionadas
+	f.fit()
+	# Mostrar principales resultados y gráfica
+	f.summary()
+    # Se da formato a los ejes y se muestra la figura
+	plt.xlabel('Potencia consumida MWh')
+	plt.ylabel('Frecuencia')
+	plt.title('Histograma de consumo de potencia a la hora {}'.format(hora))
+	plt.show()
+
+	
 
 
 def asignacion_horas(digitos):
@@ -258,6 +286,7 @@ def main():
 	print("es {} con parámetros {}".format(modelo_y_parametros[0], 
 	 								modelo_y_parametros[1:final_de_lista]))							
 	estadisticas_hora(df_asignacion_hora0)
+	visualizacion_hora(df_asignacion_hora0, modelo_y_parametros[0], horas[0])
 	
 
 main()

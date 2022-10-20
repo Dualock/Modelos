@@ -154,18 +154,18 @@ df : dataframe
 def modelo_hora(df_hora_asignacion: dataframe) -> list:
     '''
     Esta función determina un modelo probabilístico para una hora específica
-    y sus parámetros de mejor ajuste
-    Parameters
-----------
-df_hora_asignacion : dataframe
-            Un dataframe con los datos de consumo de potencia de una hora
-            específica durante todo el año
+        y sus parámetros de mejor ajuste
+        Parameters
+        ----------
+        df_hora_asignacion : dataframe
+                Un dataframe con los datos de consumo de potencia de una hora
+                específica durante todo el año
 
-    Return
-    ------
-    modelo_y_parametros: list
-            lista con el nombre del modelo probabilístico
-            y los parámetros de mejor ajuste
+        Return
+        ------
+        modelo_y_parametros: list
+                lista con el nombre del modelo probabilístico
+                y los parámetros de mejor ajuste
 
     '''
 
@@ -304,7 +304,45 @@ def asignacion_horas(digitos):
     return hora_A, hora_B
 
 
+def visualizacion_horas(df_hora1: dataframe, df_hora2: dataframe) -> None:
+    '''
+Esta función visualiza el hsitograna bivariado de disrtibucion
+    de potencia
+a partir de 2 dataframes de consumo de potencia a dos horas
+distintas
+
+Parameters
+----------
+df_hora1 : dataframe
+        Un dataframe con los datos de consumo de potencia de una hora
+        específica durante todo el año
+df_hora1 : dataframe
+        Un dataframe con los datos de consumo de potencia de otra hora
+        específica durante todo el año
+    '''
+    # Se convierte del dataframe 1 a numpy array
+    data1 = np.array(df_hora1['MW_P'])
+
+    # Se convierte del dataframe 2 a numpy array
+    data2 = np.array(df_hora2['MW_P'])
+
+    fig = plt.figure()
+    ax = fig.add_subplot(projection='3d')
+    hist, xedges, yedges = np.histogram2d(data1, data2, bins=40)
+    xpos, ypos = np.meshgrid(
+        xedges[:-1] + 0.25, yedges[:-1] + 0.25, indexing="ij")
+    xpos = xpos.ravel()
+    ypos = ypos.ravel()
+    zpos = 0
+
+    dx = dy = 0.5 * np.ones_like(zpos)
+    dz = hist.ravel()
+    #ax.bar3d(xpos, ypos, zpos, dx, dy, dz, zsort='average')
+    plt.show()
+
 # Programa principal que llama al resto de métodos ordenadamente
+
+
 def main():
     fecha_inicio = 20190101  # input("Fecha inicio (YYYYMMDD): ")
     fecha_fin = 20200101  # input("Fecha final (YYYYMMDD): ")
@@ -333,6 +371,8 @@ def main():
     print("\n El índice de correlación de Pearson entre la distribución de")
     print("las {} y las {} horas es:p = {}."
           .format(horas[0], horas[1], correlacion))
+    print("La visualización de los datos se muestra en la figura")
+    visualizacion_horas(df_asignacion_hora0, df_asignacion_hora1)
 
 
 main()

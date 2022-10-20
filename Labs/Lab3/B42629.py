@@ -149,8 +149,60 @@ def datos_hora(hora: int, df: dataframe) -> dataframe:
 	lista de fechas y horas filtradas anteriormente
 	'''
 	df_hora_asignacion = df[df['fechaHora'].isin(fechas_horas_filtradas)]
-	print(df_hora_asignacion)
+	#print(df_hora_asignacion)
 	return df_hora_asignacion
+
+
+# Funcion que obtiene el modelo probabilistico y parametros de mejor ajuste
+def modelo_hora(df_hora_asignacion: dataframe) -> list:
+	'''
+	Esta funcion determina un modelo probabilistico para una hora especifica
+	y sus parametros de mejor ajuste
+	Parameters
+    ----------
+    df_hora_asignacion : dataframe
+		Un dataframe con los datos de consumo de potencia de una hora
+		especifica durante todo el año
+
+	Return
+	------
+	parameters: list
+		lista con el nombre del modelo probabilistico 
+		y los parametros de mejor ajuste
+		
+	'''
+	modelo_y_parametros = []
+	# Se convierte de dataframe a numpy array
+	data = np.array(df_hora_asignacion['MW'])
+
+    # Se utiliza fitter para encontrar los parametros de mejor ajuste
+	f = Fitter(data, distributions=['gamma',
+                          'lognorm',
+                          "beta",
+                          "burr",
+                          "norm"])
+
+    # Realizar el ajuste para las distribuciones seleccionadas
+	f.fit()
+
+	# Obtenemos el modelo de mejor ajuste como un diccionario y nos dejamos el nombre
+	# mejor_modelo como llaves del diccionario
+	mejor_modelo = f.get_best(method = 'sumsquare_error').keys()
+
+	# Mejor modelo como lista
+	mejor_modelo = list(mejor_modelo)
+
+	# Se agrega el nombre del modelo a la lista final
+	modelo_y_parametros.append(mejor_modelo[0])
+
+    # Mostrar principales resultados y gráfica
+	f.summary()
+	parametros = f.fitted_param[mejor_modelo[0]]
+	for i in range(len(parametros)):
+		modelo_y_parametros.append(parametros[i])
+	print(modelo_y_parametros)
+	return modelo_y_parametros
+
 
 def asignacion_horas(digitos):
     '''Elige una hora A en periodo punta
@@ -176,7 +228,8 @@ def main():
 	horas = asignacion_horas(42629)
 	print(f'Las horas asignadas son {horas[0]} y {horas[1]}.')
 	df = datos_demanda(fecha_inicio, fecha_fin)
-	datos_hora(horas[0], df)
+	df_asignacion_hora0 = datos_hora(horas[0], df)
+	modelo_hora(df_asignacion_hora0)
 	
 
 main()

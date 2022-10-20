@@ -139,18 +139,27 @@ def datos_hora(hora: int, df: dataframe) -> dataframe:
 	'''fechas_horas_filtradas es una lista que almacena todas las fechas y horas
 	del año donde la hora coincide con una hora especifica
 	'''
+	
+	# lista con las fechas y horas del año coincidentes con la hora parametro
 	fechas_horas_filtradas = []
+
+	# Se transforma de int a str y se calcula el numero de digitos
+	hora_str = str(hora)
+	digitos_hora = len(hora_str)
+
+	# Si el numero es de un solo digito le agrega un 0 antes
+	if(digitos_hora == 1):
+		hora_str = '0'+hora_str
 
 	# Se itera y se almacenan las fechas y horas coincidentes
 	for i in range(len(fechas_horas)):
-		if(fechas_horas[i][11:13] == str(hora)):
+		if(fechas_horas[i][11:13] == hora_str):
 			fechas_horas_filtradas.append(fechas_horas[i])
 	
 	''' Ahora se crea un nuevo data frame con condicion de estar en la 
 	lista de fechas y horas filtradas anteriormente
 	'''
 	df_hora_asignacion = df[df['fechaHora'].isin(fechas_horas_filtradas)]
-	#print(df_hora_asignacion)
 	return df_hora_asignacion
 
 
@@ -199,7 +208,7 @@ def modelo_hora(df_hora_asignacion: dataframe) -> list:
 		modelo_y_parametros.append(parametros[i])
 	return modelo_y_parametros
 
-def estadisticas_hora(df_hora_asignacion: dataframe):
+def estadisticas_hora(df_hora_asignacion: dataframe) -> None:
 	'''
 	Esta funcion determina los momentos de una variable aleatoria
 	media, varianza, desviacion estandar, inclinacion y kurtosis
@@ -218,7 +227,7 @@ def estadisticas_hora(df_hora_asignacion: dataframe):
 	varianza = df_hora_asignacion['MW_P'].var()
 	inclinacion = df_hora_asignacion['MW_P'].skew()
 	kurtosis = df_hora_asignacion['MW_P'].kurtosis()
-	print("Sus estadísticas son: \n - media: {}".format(media))
+	print(" \n Sus estadísticas son: \n - media: {}".format(media))
 	print(" - desviación: {} \n - varianza: {}".format(desviacion, varianza))
 	print("- inclinación:{} \n - kurtosis:{}".format(inclinacion, kurtosis))
 
@@ -236,16 +245,19 @@ def visualizacion_hora(df_hora: dataframe, mejor_modelo: str, hora: int) -> None
 	mejor_modelo : str
 	hora : int
 	'''
+
 	# Se convierte de dataframe a numpy array
 	data = np.array(df_hora['MW_P'])
-
+	print("\n La visualizacion de los datos se muestra en la siguiente figura")
     # Se utiliza fitter para encontrar los parametros de mejor ajuste
 	f = Fitter(data, distributions = ['{}'.format(mejor_modelo)])
 
     # Realizar el ajuste para las distribuciones seleccionadas
 	f.fit()
+
 	# Mostrar principales resultados y gráfica
 	f.summary()
+
     # Se da formato a los ejes y se muestra la figura
 	plt.xlabel('Potencia consumida MWh')
 	plt.ylabel('Frecuencia')
@@ -254,6 +266,35 @@ def visualizacion_hora(df_hora: dataframe, mejor_modelo: str, hora: int) -> None
 
 	
 
+def correlacion_horas(df_hora1: dataframe, df_hora2: dataframe) -> float:
+	'''
+	Esta funcion calcula el coeficiente de correlacion de pearson
+	a partir de 2 dataframes de consumo de potencia a dos horas
+	distintas
+
+	Parameters
+    ----------
+    df_hora1 : dataframe
+		Un dataframe con los datos de consumo de potencia de una hora
+		especifica durante todo el año
+	df_hora1 : dataframe
+		Un dataframe con los datos de consumo de potencia de otra hora
+		especifica durante todo el año
+	Return
+	------
+	correlacion: float
+		Indice de correlacion de Pearson
+	'''
+
+	# Se convierte del dataframe 1 a numpy array
+	data1 = np.array(df_hora1['MW_P'])
+
+	# Se convierte del dataframe 2 a numpy array
+	data2 = np.array(df_hora2['MW_P'])
+
+	# Se calcula el coeficiente de correlacion de Pearson
+	correlacion = scipy.stats.pearsonr(data1, data2)[0]
+	return correlacion
 
 def asignacion_horas(digitos):
     '''Elige una hora A en periodo punta
@@ -279,14 +320,24 @@ def main():
 	horas = asignacion_horas(42629)
 	print(f'Las horas asignadas son {horas[0]} y {horas[1]}.')
 	df = datos_demanda(fecha_inicio, fecha_fin)
+
+	# Se obtienen los dataframe para cada hora
 	df_asignacion_hora0 = datos_hora(horas[0], df)
+	df_asignacion_hora1 = datos_hora(horas[1], df)
+
+	# Se obtienen los parametros y modelo de mejor ajuste para x hora
 	modelo_y_parametros = modelo_hora(df_asignacion_hora0)
+
+	# numero que indica el ultimo dato de la lista
 	final_de_lista = len(modelo_y_parametros)
 	print("\nEl modelo de distribución de consumo de potencia para las {} horas".format(horas[0]))
 	print("es {} con parámetros {}".format(modelo_y_parametros[0], 
-	 								modelo_y_parametros[1:final_de_lista]))							
+	 								modelo_y_parametros[1:final_de_lista]))						
 	estadisticas_hora(df_asignacion_hora0)
 	visualizacion_hora(df_asignacion_hora0, modelo_y_parametros[0], horas[0])
+	correlacion = correlacion_horas(df_asignacion_hora0, df_asignacion_hora1)
+	print("El índice de correlación de Pearson entre la distribución de")
+	print("las {} y las {} horas es:p = {}.".format(horas[0], horas[1], correlacion))
 	
 
 main()

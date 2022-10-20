@@ -55,15 +55,37 @@ file = 'arboles.csv'
 dataframe = NewType("dataframe type", pd.DataFrame())
 
 # Funcion que importa los datos de demanda MW directamente desde el API del CENCE en formato JSON
-def datos_demanda(fecha_inicio: int, fecha_fin: int) -> None:
+def datos_demanda(fecha_inicio: int, fecha_fin: int) -> dataframe:
+	'''
+	Esta funcion sirve para generar un archivo en formato json a partir de los datos
+	obtenidos del CENCE de los MW por hora consumidos en Costa Rica haciendo un request al
+	API que expone el CENCE y utilizando las librerias request y json
+
+	Parameters
+    ----------
+    fecha_inicio : int
+    fecha_fin : int
+
+	Return
+	------
+	df : dataframe
+		Un dataframe con los datos json obtenidos mediante el request
+	'''
+
+	# Crea el url de acceso a la base de datos del CENCE
 	api_url = "https://apps.grupoice.com/CenceWeb/data/sen/json/DemandaMW?inicio=" + str(fecha_inicio) + "&fin=" + str(fecha_fin)
-	print(api_url)
 	requested_data = requests.get(api_url)
 	requested_data = requested_data.json()
 	json_string = json.dumps(requested_data)
 	json_file = open("data.json", "w")
 	json_file.write(json_string)
 	json_file.close()
+	json_data = json.load(open('data.json'))
+	df = pd.DataFrame(json_data["data"])
+	print(df)
+	return df
+
+
 # funcion que obtiene los datos de consumo de potencia de una hora particular (0 - 24) a lo largo de todo el período de días disponible	
 def datos_hora(hora):
 	#hace algo lol
@@ -92,7 +114,7 @@ def main():
 	digitos_carne = 42629 		#input("¿Cuáles son los dígitos del carné?: ")
 	horas = asignacion_horas(42629)
 	print(f'Las horas asignadas son {horas[0]} y {horas[1]}.')
-	datos_demanda(fecha_inicio, fecha_fin)
+	df = datos_demanda(fecha_inicio, fecha_fin)
 	
 
 main()

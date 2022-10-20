@@ -166,21 +166,18 @@ def modelo_hora(df_hora_asignacion: dataframe) -> list:
 
 	Return
 	------
-	parameters: list
+	modelo_y_parametros: list
 		lista con el nombre del modelo probabilistico 
 		y los parametros de mejor ajuste
 		
 	'''
+
 	modelo_y_parametros = []
 	# Se convierte de dataframe a numpy array
 	data = np.array(df_hora_asignacion['MW'])
 
     # Se utiliza fitter para encontrar los parametros de mejor ajuste
-	f = Fitter(data, distributions=['gamma',
-                          'lognorm',
-                          "beta",
-                          "burr",
-                          "norm"])
+	f = Fitter(data )
 
     # Realizar el ajuste para las distribuciones seleccionadas
 	f.fit()

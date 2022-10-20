@@ -174,10 +174,10 @@ def modelo_hora(df_hora_asignacion: dataframe) -> list:
 
 	modelo_y_parametros = []
 	# Se convierte de dataframe a numpy array
-	data = np.array(df_hora_asignacion['MW'])
+	data = np.array(df_hora_asignacion['MW_P'])
 
     # Se utiliza fitter para encontrar los parametros de mejor ajuste
-	f = Fitter(data )
+	f = Fitter(data)
 
     # Realizar el ajuste para las distribuciones seleccionadas
 	f.fit()
@@ -197,8 +197,34 @@ def modelo_hora(df_hora_asignacion: dataframe) -> list:
 	parametros = f.fitted_param[mejor_modelo[0]]
 	for i in range(len(parametros)):
 		modelo_y_parametros.append(parametros[i])
-	print(modelo_y_parametros)
 	return modelo_y_parametros
+
+def estadisticas_hora(df_hora_asignacion: dataframe):
+	'''
+	Esta funcion determina los momentos de una variable aleatoria
+	media, varianza, desviacion estandar, inclinacion y kurtosis,
+    ----------
+    df_hora_asignacion : dataframe
+		Un dataframe con los datos de consumo de potencia de una hora
+		especifica durante todo el año
+
+	Return
+	------
+	modelo_y_parametros: list
+		lista con el nombre del modelo probabilistico 
+		y los parametros de mejor ajuste
+	'''
+
+	# Calculo de media
+	media = df_hora_asignacion['MW_P'].mean()
+	desviacion = df_hora_asignacion['MW_P'].std()
+	varianza = df_hora_asignacion['MW_P'].var()
+	inclinacion = df_hora_asignacion['MW_P'].skew()
+	kurtosis = df_hora_asignacion['MW_P'].kurtosis()
+	print("Sus estadísticas son: \n - media: {}".format(media))
+	print(" - desviación: {} \n - varianza: {}".format(desviacion, varianza))
+	print("- inclinación:{} \n - kurtosis:{}".format(inclinacion, kurtosis))
+
 
 
 def asignacion_horas(digitos):
@@ -226,7 +252,12 @@ def main():
 	print(f'Las horas asignadas son {horas[0]} y {horas[1]}.')
 	df = datos_demanda(fecha_inicio, fecha_fin)
 	df_asignacion_hora0 = datos_hora(horas[0], df)
-	modelo_hora(df_asignacion_hora0)
+	modelo_y_parametros = modelo_hora(df_asignacion_hora0)
+	final_de_lista = len(modelo_y_parametros)
+	print("\nEl modelo de distribución de consumo de potencia para las {} horas".format(horas[0]))
+	print("es {} con parámetros {}".format(modelo_y_parametros[0], 
+	 								modelo_y_parametros[1:final_de_lista]))							
+	estadisticas_hora(df_asignacion_hora0)
 	
 
 main()

@@ -175,7 +175,7 @@ def modelo_hora(df_hora_asignacion: dataframe) -> list:
     data = np.array(df_hora_asignacion['MW_P'])
 
 # Se utiliza fitter para encontrar los parámetros de mejor ajuste
-    f = Fitter(data, distributions=['loggamma'])
+    f = Fitter(data)
 
 # Realizar el ajuste para las distribuciones seleccionadas
     f.fit()
@@ -344,9 +344,9 @@ df_hora1 : dataframe
 
 
 def main():
-    fecha_inicio = 20190101  # input("Fecha inicio (YYYYMMDD): ")
-    fecha_fin = 20200101  # input("Fecha final (YYYYMMDD): ")
-    digitos_carne = 42629  # input("¿Cuáles son los dígitos del carné?: ")
+    fecha_inicio = input("Fecha inicio (YYYYMMDD) ej (20190101): ")
+    fecha_fin = input("Fecha final (YYYYMMDD) ej (20200101): ")
+    digitos_carne = input("¿Cuáles son los dígitos del carné?: ")
     horas = asignacion_horas(digitos_carne)
     print(f'Las horas asignadas son {horas[0]} y {horas[1]}.')
     df = datos_demanda(fecha_inicio, fecha_fin)

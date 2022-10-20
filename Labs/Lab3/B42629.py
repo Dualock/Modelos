@@ -72,24 +72,85 @@ def datos_demanda(fecha_inicio: int, fecha_fin: int) -> dataframe:
 		Un dataframe con los datos json obtenidos mediante el request
 	'''
 
-	# Crea el url de acceso a la base de datos del CENCE
-	api_url = "https://apps.grupoice.com/CenceWeb/data/sen/json/DemandaMW?inicio=" + str(fecha_inicio) + "&fin=" + str(fecha_fin)
-	requested_data = requests.get(api_url)
-	requested_data = requested_data.json()
-	json_string = json.dumps(requested_data)
-	json_file = open("data.json", "w")
-	json_file.write(json_string)
-	json_file.close()
-	json_data = json.load(open('data.json'))
-	df = pd.DataFrame(json_data["data"])
-	print(df)
-	return df
+	#verifica si el archivo ya se ha creado anteriormente
+	try:
+
+		# Si el archivo existe, se usa para crear el dataframe
+		print("Creando dataframe a partir del json")
+
+		# Se abre guardan los datos del archivo en formato json
+		json_data = json.load(open('data.json'))
+
+		# Se convierte de json a dataframe los datos
+		df = pd.DataFrame(json_data["data"])
+		return df
+	except IOError:
+
+		# Si el archivo no existe lo creamos al procesar esta excepcion
+		# Crea el url de acceso a la base de datos del CENCE utilizando las fechas de inicio y final
+		print("el archivo json no existe, se crea accediendo al API")
+		api_url = "https://apps.grupoice.com/CenceWeb/data/sen/json/DemandaMW?inicio=" + str(fecha_inicio) + "&fin=" + str(fecha_fin)
+
+		# Se realiza la obtencion de los datos con request.get
+		requested_data = requests.get(api_url)
+
+		# Se obtiene el request_data en formato json
+		requested_data = requested_data.json()
+
+		# Se convierte a string para escribir en el archivo.json
+		json_string = json.dumps(requested_data)
+
+		# Se abre el archivo y se escribe en el
+		json_file = open("data.json", "w")
+		json_file.write(json_string)
+		json_file.close()
+
+		# Se abre guardan los datos del archivo en formato json 
+		json_data = json.load(open('data.json'))
+
+		# Se convierte de json a dataframe los datos
+		df = pd.DataFrame(json_data["data"])
+		return df
+	
 
 
 # funcion que obtiene los datos de consumo de potencia de una hora particular (0 - 24) a lo largo de todo el período de días disponible	
-def datos_hora(hora):
-	#hace algo lol
-	print("dh")
+def datos_hora(hora: int, df: dataframe) -> dataframe:
+	'''
+	Esta funcion crea un dataframe con todos los datos de consumo
+	de potencia para una hora especifica a partir del dataframe 
+	completo para todas las horas en un periodo establecido
+		Parameters
+    ----------
+    hora : int
+    df : dataframe
+
+	Return
+	------
+	df_hora_asignacion : dataframe
+		Un dataframe con los datos de consumo de potencia de una hora
+		especifica durante todo el año
+	'''
+
+	# Se convierte de dataframe a list
+	fechas_horas = df['fechaHora'].values.tolist()
+
+	'''fechas_horas_filtradas es una lista que almacena todas las fechas y horas
+	del año donde la hora coincide con una hora especifica
+	'''
+	fechas_horas_filtradas = []
+
+	# Se itera y se almacenan las fechas y horas coincidentes
+	for i in range(len(fechas_horas)):
+		if(fechas_horas[i][11:13] == str(hora)):
+			fechas_horas_filtradas.append(fechas_horas[i])
+	
+	''' Ahora se crea un nuevo data frame con condicion de estar en la 
+	lista de fechas y horas filtradas anteriormente
+	'''
+	df_hora_asignacion = df[df['fechaHora'].isin(fechas_horas_filtradas)]
+	print(df_hora_asignacion)
+	return df_hora_asignacion
 
 def asignacion_horas(digitos):
     '''Elige una hora A en periodo punta
@@ -115,6 +176,7 @@ def main():
 	horas = asignacion_horas(42629)
 	print(f'Las horas asignadas son {horas[0]} y {horas[1]}.')
 	df = datos_demanda(fecha_inicio, fecha_fin)
+	datos_hora(horas[0], df)
 	
 
 main()
